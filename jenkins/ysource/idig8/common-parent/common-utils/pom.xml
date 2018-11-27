@@ -11,5 +11,10 @@
 
     <artifactId>common-utils</artifactId>
 
-
+  <distributionManagement>
+        <repository>
+            <id>nexus-snapshots</id>
+            <url>http://192.168.66.102:8081/nexus/content/repositories/snapshots/</url>
+        </repository>
+    </distributionManagement>
 </project>

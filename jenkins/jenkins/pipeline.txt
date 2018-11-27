@@ -33,6 +33,20 @@ pipeline {
 			}
 		}
 		
+		stage('jar包上传到nexus上') {
+			steps{
+				echo " start maven update jar"
+				 sh"""
+         cd $workspace/idig8/common-parent/common-utils
+         mvn clean deploy
+         cd $workspace/idig8/common-parent/common-dao
+         mvn clean deploy
+         cd $workspace/idig8/common-parent/common-service
+         mvn clean deploy
+         """
+			}
+		}
+		
 		stage('移动目录到用户目录下') {
 			steps{
 				echo "mv idig8.war"

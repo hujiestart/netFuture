@@ -28,7 +28,7 @@
     <mirror> 
       <id>nexus-snapshots</id> 
       <mirrorOf>*</mirrorOf> 
-      <url>http://192.168.66.102:8081/nexus/content/groups/public-snapshots</url> 
+      <url>http://192.168.66.102:8081/nexus/content/repositories/snapshots</url> 
     </mirror> 
   </mirrors> 
  
