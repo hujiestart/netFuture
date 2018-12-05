@@ -1,0 +1,71 @@
+#!groovy
+pipeline {
+	agent any
+	//环境变量，
+	environment {
+		REPOSITORY="ssh://git@192.168.66.100:10022/root/idig8.git"
+		MODULE="idig8"
+		SCRIPT_PATH="/root/"
+		remoteHost_tomcat= '192.168.66.103'
+	
+	}
+	//流水线是如何提前，都是通过很多个stages下面的stage
+	stages {
+		stage('获取代码'){
+			steps{
+				echo " start fetch code from git ssh://git@192.168.66.100:10022/root/idig8.git"
+				deleteDir()
+				git "${REPOSITORY}"
+			}
+		}
+		stage('代码静态检查') {
+			steps{
+				echo " start code check"
+			}
+		}
+		stage('编译+单元测试') {
+			steps{
+				echo " start compile"
+				 sh"""
+         cd $workspace/idig8/common-parent/
+         mvn  -U clean install -Dmvn.test.skip=true -Ptest
+         """
+			}
+		}
+		
+		stage('jar包上传到nexus上') {
+			steps{
+				echo " start maven update jar"
+				 sh"""
+         cd $workspace/idig8/common-parent/common-utils
+         mvn clean deploy
+         cd $workspace/idig8/common-parent/common-dao
+         mvn clean deploy
+         cd $workspace/idig8/common-parent/common-service
+         mvn clean deploy
+         """
+			}
+		}
+		
+		stage('移动目录到用户目录下') {
+			steps{
+				echo "mv idig8.war"
+				 sh"""
+         mv -f $workspace/idig8/common-parent/common-web/target/common-web.war ${SCRIPT_PATH}${MODULE}.war
+         """
+			}
+		}
+		stage('拷贝文件到tomcat指定目录下') {
+		
+			steps{
+				echo "scp 目标文件"
+				 sh"""
+         sshpass -p 'vagrant' ssh -p 22 -o stricthostkeychecking=no root@${remoteHost_tomcat} 'rm -rf /root/tomcat/tomcat-persistence/tomcat/data/${MODULE}*';
+         sshpass -p 'vagrant' scp -P 22 -o stricthostkeychecking=no ${SCRIPT_PATH}${MODULE}.war root@${remoteHost_tomcat}:/root/tomcat/tomcat-persistence/tomcat/data/${MODULE}.war;
+         """
+         echo "打包完毕美滋滋 刷新tomcat查看吧"
+			}
+		}
+		
+	}
+}
