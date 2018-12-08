@@ -1,0 +1,109 @@
+node ()
+{
+  //APP”¶”√  
+ def workspace = pwd()
+
+    stage('CheckOut') {
+       // branch_name='master'
+ branch_name='release_20180726'
+        url_group='http://10.124.163.76:8888/touch_group/touch.git'
+
+        git branch: branch_name, credentialsId: 'f0037d0b-aa9c-4acc-a662-59bd9b6b3a16', url: url_group
+    }
+
+    stage('Build') {
+         sh"""
+         cd $workspace/app-server/
+         mvn  -U clean install -Dmvn.test.skip=true -Ptest
+         """
+    }
+	
+   stage('replace') {
+        remotePasswd = 'De@2018er'
+        remoteHost1_1= '10.124.192.222'
+        remoteUser= 'deployer'
+
+  
+        App1 = 'skymarketing-server'
+        Src1 = 'app-server/target'
+
+        Dest = "/data/deployer/tmp/wxx/touch"
+		Dest2 = "/data/deployer/tmp/wxx/touchfile"
+		Destfile = 'server-config.xml'
+
+        sh"""
+		   sshpass -p '${remotePasswd}' ssh -p 22 -o stricthostkeychecking=no ${remoteUser}@${remoteHost1_1} 'rm -rf ${Dest}/';
+           sshpass -p '${remotePasswd}' ssh -p 22 -o stricthostkeychecking=no ${remoteUser}@${remoteHost1_1} 'mkdir -p  ${Dest}/';
+           sshpass -p '${remotePasswd}' scp -P22 -o stricthostkeychecking=no ${Src1}/${App1}.war ${remoteUser}@${remoteHost1_1}:${Dest}/${App1}.war; 
+		   sshpass -p '${remotePasswd}' ssh -p 22 -o stricthostkeychecking=no ${remoteUser}@${remoteHost1_1} 'mkdir -p  ${Dest}/WEB-INF/classes';
+		   sshpass -p '${remotePasswd}' ssh -p 22 -o stricthostkeychecking=no ${remoteUser}@${remoteHost1_1} 'cp ${Dest2}/${Destfile}  ${Dest}/WEB-INF/classes/${Destfile}';
+		   sshpass -p '${remotePasswd}' ssh -p 22 -o stricthostkeychecking=no ${remoteUser}@${remoteHost1_1} 'cd ${Dest}; /data/deployer/app/jdk1.8.0_11/bin/jar -uvf ${App1}.war WEB-INF/classes/${Destfile}';
+         """
+    }
+
+
+    stage('preDeploy') {
+        remotePasswd = 'De@2018er'
+        remoteHost1_1= '10.124.192.222'
+        remoteUser= 'deployer'
+
+  
+        App1 = 'skymarketing-server'
+        Src1 = 'app-server/target'
+
+        centername='wars-wxx'
+        envname='test'
+        groupname='touch'
+        Dest = "/data/deployer/app/nginx1.1/html/${centername}/${envname}/${groupname}"
+		ReplaceWar = "/data/deployer/tmp/wxx/touch"
+
+        sh"""
+           sshpass -p '${remotePasswd}' ssh -p 22 -o stricthostkeychecking=no ${remoteUser}@${remoteHost1_1} 'mkdir -p  ${Dest}/';
+           sshpass -p '${remotePasswd}' ssh -p 22 -o stricthostkeychecking=no ${remoteUser}@${remoteHost1_1} 'rm -rf ${Dest}/${App1}.war';
+		   sshpass -p '${remotePasswd}' ssh -p 22 -o stricthostkeychecking=no ${remoteUser}@${remoteHost1_1} 'cp ${ReplaceWar}/${App1}.war ${Dest}/${App1}.war';
+         """
+    }
+
+	
+	/*
+    stage('Deploy') {
+        remotePasswd = 'De@2018er'
+        remoteHost1_1= '10.124.192.223'
+        remoteUser= 'deployer'
+
+        appid=' c89f0416-4e38-45fd-90f1-da12d4dea1ec'
+        centername='wars-wxx'
+        envname='test'
+        groupname='touch'
+        war_addr="http://10.124.192.222:8990/${centername}/${envname}/${groupname}"
+        app1='skymarketing-server'
+        api_path='/home/deployer/edasUnicomApi'
+
+     
+        sh"""
+           sshpass -p '${remotePasswd}' ssh -p 22 -o stricthostkeychecking=no ${remoteUser}@${remoteHost1_1} '/usr/bin/java  -jar  ${api_path}/edas_unicom_api_1.0.jar  prepro  deploy  ${appid} ${war_addr}/${app1}.war';
+        """
+    }*/
+	
+
+   /*
+   stage('Deploy') {
+         remoteUser = 'root'
+         remotePasswd = 'xxh#hk123'
+         Dest = '/home/admin/taobao-tomcat-production-7.0.59.3/deploy'
+         Bin="su - admin -c '${Dest}/../bin/restart.sh'"
+         //Bin = '/bin/ps -efuadmin|grep java|grep taobao-tomcat-production|egrep -vw \'tail|grep|vi|vim\'|awk \'{print \$2}\'|xargs kill -9;sleep 5;su - admin -c "${Dest}../bin/restart.sh"'
+
+        
+        App1 = 'skymarketing-server'
+        Src1 = 'app-server/target'
+        remoteHost1_1 = '10.124.194.207'
+
+        sh """
+
+        sshpass -p '${remotePasswd}' ssh -p 22 -o stricthostkeychecking=no ${remoteUser}@${remoteHost1_1} 'rm -rf ${Dest}/${App1}*';
+        sshpass -p '${remotePasswd}' scp -P22 -o stricthostkeychecking=no ${Src1}/${App1}.war ${remoteUser}@${remoteHost1_1}:${Dest}/${App1}.war;
+        sshpass -p '${remotePasswd}' ssh -p 22 -o stricthostkeychecking=no ${remoteUser}@${remoteHost1_1} 'cd ${Dest};chown -R admin.admin *;${Bin}';
+        """
+    }*/
+}
