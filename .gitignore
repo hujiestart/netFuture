@@ -10,3 +10,4 @@
 *.MF
 *.war
 *.jar
+/api网关/idig8-api-gateway/target
