@@ -1,0 +1,10 @@
+com\idig8\consumer\ApiConsumer.class
+com\idig8\service\DemoServiceImpl.class
+com\idig8\service\UserService.class
+com\idig8\consumer\Consumer.class
+com\idig8\service\UserServiceImpl.class
+com\idig8\service\DemoService.class
+com\idig8\provider\ApiProvider.class
+com\idig8\provider\RedisProvider.class
+com\idig8\consumer\RedisConsumer.class
+com\idig8\provider\Provider.class
