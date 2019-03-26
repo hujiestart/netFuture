@@ -36,6 +36,11 @@
       <artifactId>commons-pool</artifactId>
       <version>1.6</version>
     </dependency>
+    <dependency>
+      <groupId>com.github.sgroschupf</groupId>
+      <artifactId>zkclient</artifactId>
+      <version>0.1</version>
+    </dependency>
   </dependencies>
 
   <build>
