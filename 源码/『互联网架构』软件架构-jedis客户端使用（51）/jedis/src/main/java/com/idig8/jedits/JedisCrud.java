@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class JedisCrud {
 
 
-    private static Jedis jedis = new Jedis("192.168.0.12",6379);
+    private static Jedis jedis = new Jedis("192.168.79.102",7001);
 
 
     @Test
@@ -20,7 +20,7 @@ public class JedisCrud {
     {
         System.out.println("清空数据："+jedis.flushDB());
         System.out.println("判断某个键是否存在："+jedis.exists("username"));
-        System.out.println("新增<'username','wukong'>的键值对："+jedis.set("username", "wukong"));
+        System.out.println("新增<'username','wukong'>的键值对："+jedis.set("username", "idig8"));
         System.out.println("是否存在:"+jedis.exists("name"));
         System.out.println("新增<'password','password'>的键值对："+jedis.set("password", "password"));
         Set<String> keys = jedis.keys("*");
