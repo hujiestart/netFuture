@@ -59,7 +59,7 @@ public class NioSocketDemo {
 			// 获得selector中选中的项的迭代器，选中的项为注册的事件
 			Iterator<?> iteratorKey = this.selector.selectedKeys().iterator();
 			while (iteratorKey.hasNext()) {
-				SelectionKey selectionKey = (SelectionKey) iteratorKey.next();
+				final SelectionKey selectionKey = (SelectionKey) iteratorKey.next();
 				// 删除已选的key,以防重复处理
 				iteratorKey.remove();
 				
