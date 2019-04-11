@@ -10,7 +10,7 @@ import org.jboss.netty.channel.SimpleChannelHandler;
 
 /**
  * 客户端消息处理类
- * @author 张飞
+ * @author idig8.com
  */
 public class ClientHandler extends SimpleChannelHandler {
 	// 包头,要特殊一点
@@ -18,13 +18,13 @@ public class ClientHandler extends SimpleChannelHandler {
 	@Override
 	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
 		/*Channel channel = ctx.getChannel();
-		String msg = "Hello,zhang fei";
+		String msg = "Hello,idig8";
 		for (int i = 0; i < 1000; i++) {
 			channel.write(msg);
 		}*/
 		
 		Channel channel = ctx.getChannel();
-		String msg = "Hello,zhang fei";
+		String msg = "Hello,idig8.com";
 		byte[] bs = msg.getBytes();
 		ChannelBuffer buffer = ChannelBuffers.dynamicBuffer();
 		buffer.writeInt(HEAD_FLAG);

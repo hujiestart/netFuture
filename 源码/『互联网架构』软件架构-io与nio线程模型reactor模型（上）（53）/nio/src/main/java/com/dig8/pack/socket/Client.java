@@ -13,7 +13,7 @@ import org.jboss.netty.handler.codec.string.StringEncoder;
 /**
  * 客户端
  * 
- * @author 张飞
+ * @author idig8.com
  */
 public class Client {
 

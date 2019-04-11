@@ -5,7 +5,7 @@ import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 
 /**
- * @author 张飞老师
+ * @author idig8.com
  */
 public class ServerHandler extends SimpleChannelHandler{
 	
