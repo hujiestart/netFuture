@@ -1,29 +1,32 @@
-package com.dig8.netty;
+package com.dig8.serial.protobuf.serial.nettyprotobuf.handler;
 
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelStateEvent;
 import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
-/**
- * 消息处理类
- * @author idig8.com
- */
-public class MyServerMessageHandler extends SimpleChannelHandler {
 
+import com.dig8.serial.protobuf.serial.proto.SubscribeReqProto;
+import com.dig8.serial.protobuf.serial.proto.SubscribeRespProto;
+import com.dig8.serial.protobuf.serial.proto.SubscribeRespProto.SubscribeResp;
+
+public class ServerMessageHandler extends SimpleChannelHandler {
+	private SubscribeResp resp(int subReqID){
+		SubscribeRespProto.SubscribeResp.Builder builder = SubscribeRespProto.SubscribeResp.newBuilder();
+		builder.setSubReqID(subReqID)
+				.setRespCode("0")
+				.setDesc("Netty 权威指南订购成功 !");
+		return builder.build();
+	}
+	
 	/**
 	 * 接收消息
 	 */
 	@Override
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
-		System.out.println("messageReceived");
-		
-		String s = (String) e.getMessage();
-		System.out.println("服务端收到数据："+s);
-		
-		//回写数据给客户端
-		ctx.getChannel().write("hello...");
-		super.messageReceived(ctx, e);
+		SubscribeReqProto.SubscribeReq req = (SubscribeReqProto.SubscribeReq)e.getMessage();
+		System.out.println("client req: "+ req);
+		ctx.getChannel().write(resp(req.getSubReqID()));		
 	}
 
 	/**
@@ -32,7 +35,6 @@ public class MyServerMessageHandler extends SimpleChannelHandler {
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) throws Exception {
 		System.out.println("exceptionCaught");
-		super.exceptionCaught(ctx, e);
 	}
 
 	/**
@@ -41,7 +43,6 @@ public class MyServerMessageHandler extends SimpleChannelHandler {
 	@Override
 	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
 		System.out.println("channelConnected");
-		super.channelConnected(ctx, e);
 	}
 
 	/**
@@ -50,7 +51,6 @@ public class MyServerMessageHandler extends SimpleChannelHandler {
 	@Override
 	public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
 		System.out.println("channelDisconnected");
-		super.channelDisconnected(ctx, e);
 	}
 
 	/**
@@ -59,6 +59,6 @@ public class MyServerMessageHandler extends SimpleChannelHandler {
 	@Override
 	public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
 		System.out.println("channelClosed");
-		super.channelClosed(ctx, e);
 	}
 }
+
