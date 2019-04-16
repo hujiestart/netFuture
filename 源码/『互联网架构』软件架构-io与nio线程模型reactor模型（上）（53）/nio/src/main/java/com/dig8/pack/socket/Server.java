@@ -12,7 +12,7 @@ import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 /**
  * netty服务端
  * 
- * @author 张飞老师
+ * @author idig8.com
  */
 public class Server {
 

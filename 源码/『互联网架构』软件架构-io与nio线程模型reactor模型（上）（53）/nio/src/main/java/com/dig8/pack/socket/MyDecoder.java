@@ -10,7 +10,7 @@ import org.jboss.netty.handler.codec.frame.FrameDecoder;
 
 /**
  * 防止socket字节流攻击
- * @author 张飞老师
+ * @author idig8.com
  */
 public class MyDecoder extends FrameDecoder {
 	// 包头
