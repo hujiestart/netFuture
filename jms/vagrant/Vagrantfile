@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.require_version ">= 1.6.0"
+
+boxes = [
+    {
+        :name => "rocketmq-master-1",
+        :mem => "2048",
+        :cpu => "1",
+        :ip => "192.168.89.100"
+    },
+    {
+        :name => "rocketmq-master-2",
+        :mem => "2048",
+        :cpu => "1",
+        :ip => "192.168.89.101"
+    }
+]
+
+Vagrant.configure(2) do |config|
+
+  config.vm.box = "vsvirskiy/centos-7.5-docker"
+  config.vm.box_version = "201808.26.0"
+  boxes.each do |opts|
+      config.vm.define opts[:name] do |config|
+        config.vm.hostname = opts[:name]
+        config.vm.provider "vmware_fusion" do |v|
+          v.vmx["memsize"] = opts[:mem]
+          v.vmx["numvcpus"] = opts[:cpu]
+        end
+
+        config.vm.provider "virtualbox" do |v|
+          v.customize ["modifyvm", :id, "--memory", opts[:mem]]
+          v.customize ["modifyvm", :id, "--cpus", opts[:cpu]]
+        end
+        config.vm.network :private_network, auto_config: true, ip: opts[:ip], bridge:"ens1f0", bootproto: "static", gateway: "192.168.89.1"
+      end
+  end
+
+end
