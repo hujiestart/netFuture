@@ -6,13 +6,13 @@ Vagrant.require_version ">= 1.6.0"
 boxes = [
     {
         :name => "rocketmq-master-1",
-        :mem => "2048",
+        :mem => "4096",
         :cpu => "1",
         :ip => "192.168.89.100"
     },
     {
         :name => "rocketmq-master-2",
-        :mem => "2048",
+        :mem => "4096",
         :cpu => "1",
         :ip => "192.168.89.101"
     }
