@@ -1,0 +1,9 @@
+com\idig8\entity\Order.class
+com\idig8\service\DemoService.class
+com\idig8\algorithm\PreciseModuloTableShardingAlgorithm.class
+com\idig8\entity\OrderItem.class
+com\idig8\algorithm\PreciseModuloDatabaseShardingAlgorithm.class
+com\idig8\repository\OrderItemRepository.class
+com\idig8\App.class
+com\idig8\SpringMybatisShardingDatabaseAndTableMain.class
+com\idig8\repository\OrderRepository.class
