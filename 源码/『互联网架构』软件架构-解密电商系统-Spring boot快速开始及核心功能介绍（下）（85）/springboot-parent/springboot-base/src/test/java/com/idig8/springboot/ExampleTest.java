@@ -3,6 +3,7 @@ package com.idig8.springboot;
 import junit.framework.TestCase;
 
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,8 +19,8 @@ public class ExampleTest {
     @Autowired
     private Example controller;
 
-    //	@Test
-    public void testHome() {
+    @Test
+    private void testHome() {
         TestCase.assertEquals("Hello World!", controller.home());
         System.out.println(controller.home());
     }
