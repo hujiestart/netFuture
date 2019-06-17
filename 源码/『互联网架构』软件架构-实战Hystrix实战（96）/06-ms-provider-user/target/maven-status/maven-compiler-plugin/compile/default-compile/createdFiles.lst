@@ -1,0 +1,4 @@
+com\tuling\cloud\study\ProviderUserApplication.class
+com\tuling\cloud\study\controller\UserController.class
+com\tuling\cloud\study\entity\User.class
+com\tuling\cloud\study\repository\UserRepository.class
