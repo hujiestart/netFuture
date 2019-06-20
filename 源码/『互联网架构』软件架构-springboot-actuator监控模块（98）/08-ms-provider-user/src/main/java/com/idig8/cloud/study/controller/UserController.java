@@ -1,4 +1,4 @@
-package com.tuling.cloud.study.controller;
+package com.idig8.cloud.study.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tuling.cloud.study.entity.User;
-import com.tuling.cloud.study.repository.UserRepository;
+import com.idig8.cloud.study.entity.User;
+import com.idig8.cloud.study.repository.UserRepository;
 
 @RestController
 public class UserController {

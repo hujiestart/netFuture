@@ -1,4 +1,4 @@
-package com.tuling.cloud.study.entity;
+package com.idig8.cloud.study.entity;
 
 import java.math.BigDecimal;
 

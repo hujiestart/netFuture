@@ -1,4 +1,4 @@
-package com.tuling.cloud.study;
+package com.idig8.cloud.study;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
