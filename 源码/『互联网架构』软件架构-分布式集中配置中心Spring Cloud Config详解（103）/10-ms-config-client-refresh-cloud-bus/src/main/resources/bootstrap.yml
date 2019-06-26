@@ -7,7 +7,7 @@ spring:
       profile: dev            # profile对应config server所获取的配置文件中的{profile} 
       label: master           # 指定Git仓库的分支，对应config server所获取的配置文件的{label}
   rabbitmq:
-    host: localhost
+    host: 192.168.70.100
     port: 5672
     username: guest
     password: guest
