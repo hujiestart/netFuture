@@ -7,7 +7,7 @@ spring:
     config:
       server:
         git:
-          uri: https://gitee.com/aaronrao/spring-cloud-config-test.git      # 配置Git仓库的地址
+          uri: https://github.com/limingios/springcloudconfig.git         # 配置Git仓库的地址
           username:                                                         # Git仓库的账号
           password:                                                         # Git仓库的密码
 eureka:
