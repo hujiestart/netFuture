@@ -5,8 +5,8 @@ spring:
     name: service-admin  
   mail:  
     host: smtp.163.com  
-    username: aaronrao2018@163.com
-    password: 2018shijiebei  
+    username: idig8@163.com
+    password: www.dig8.com
     properties:  
       mail.debug: false  
       mail.smtp.auth: true  
@@ -14,8 +14,8 @@ spring:
     admin:  
       notify:  
         mail:  
-          to: 3376224996@qq.com  
-          from: aaronrao2018@163.com  
+          to: idig8@qq.com
+          from: idig8163.com
 #          ignore-changes: UNKNOWN:UP  
       routes:  
         endpoints: env,metrics,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream 
