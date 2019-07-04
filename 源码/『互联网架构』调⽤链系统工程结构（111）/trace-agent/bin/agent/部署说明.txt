@@ -1,0 +1,15 @@
+部署步骤：
+1、解压agent.zip至任意目录
+2、在JAVA应用程序中添加jvm 启动参数如下：
+-javaagent:{agent解压目录}/cbt-agent-bootstrap-1.0-SNAPSHOT.jar
+3、启动JAVA应用，当日志当中输出 “藏宝图服务启动成功” 表示部署已经成功
+4、查看监控数据 http://client.cbtu.pro:9978/trace/requests
+
+此版本仅支持如下数据拦截：
+Http 请求
+Dubbo远程调用
+Mysql 数据库
+
+已经测试通过的环境：
+JVM 1.7、1.8
+Tomcat 7、8

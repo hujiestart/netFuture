@@ -1,0 +1,10 @@
+com\test\service\User.class
+com\test\UserServlet.class
+com\test\ServerAgentTest.class
+com\test\dubbo\Provider.class
+com\test\WebAgentTest.class
+com\test\service\UserServiceImpl.class
+com\test\service\UserService.class
+com\test\LubanAgentTest.class
+com\test\JdbcAgentTest.class
+com\test\dubbo\Consumer.class
