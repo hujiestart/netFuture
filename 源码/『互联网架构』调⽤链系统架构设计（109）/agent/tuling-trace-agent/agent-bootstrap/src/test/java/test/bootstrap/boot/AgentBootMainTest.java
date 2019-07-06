@@ -120,7 +120,7 @@ public class AgentBootMainTest {
 
     @Test
     public void clientMd5Create() throws IOException {
-        String file="C:\\Users\\Administrator\\Desktop\\cbt-agent-base-V1.1.3.jar";
+        String file="E:\\aa\\cbt-agent-collects-1.1.3.jar";
         byte[] bytes = Files.readAllBytes(new File(file).toPath());
         String md5Text = UtilEncryption.md5(bytes);
         System.out.println(md5Text);

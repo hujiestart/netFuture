@@ -1,0 +1,4 @@
+com\idig8\App.class
+com\idig8\agent\test\IdigAgent.class
+com\idig8\agent\test\UserServiceImpl.class
+com\idig8\agent\test\ClassByteUtil.class
