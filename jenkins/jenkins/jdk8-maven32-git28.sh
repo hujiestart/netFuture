@@ -3,50 +3,56 @@
 # @Last Modified by:   liming
 # @Last Modified time: 23:15:05
 # @urlblog idig8.com
-# ¸öÈË¹«ÖÚºÅ  ±à³Ì¿ÓÌ«¶à
+# ä¸ªäººå…¬ä¼—å·  ç¼–ç¨‹å‘å¤ªå¤š
 
 #!/bin/bash
-SOFT_PATH=/opt/soft
+SOFT_PATH=/usr/local
 
 if [ ! -d $SOFT_PATH ];then
 mkdir $SOFT_PATH
 else
-echo "ÎÄ¼ş¼ĞÒÑ¾­´æÔÚ"
+echo "æ–‡ä»¶å¤¹å·²ç»å­˜åœ¨"
 fi
 
 yum install -y wget 
 #install jdk1.8
 cd $SOFT_PATH
 wget wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u141-b15/336fa29ff2bb4ef291e347e091f7f4a7/jdk-8u141-linux-x64.tar.gz"
-tar -zxvf jdk* -C $SOFT_PATH
+tar -zxf jdk* -C $SOFT_PATH
 cd jdk*
+ln -s /usr/local/jdk1.8.0_141/ /usr/local/jdk
+ln -s /usr/local/jdk/bin/java  /usr/bin/java
 JAVA_HOME=`pwd` 
 
 #install maven3.2.3
 cd $SOFT_PATH
 wget https://archive.apache.org/dist/maven/maven-3/3.2.3/binaries/apache-maven-3.2.3-bin.tar.gz
-tar -zxvf apache-maven-3.2.3-bin.tar.gz -C $SOFT_PATH
+tar -zxf apache-maven-3.2.3-bin.tar.gz -C $SOFT_PATH
 mv apache-maven-3.2.3 maven-3.2.3
-cd maven*
+ln -s  /usr/local/maven-3.2.3/ /usr/local/maven
+cd /usr/local/maven
 MAVEN_HOME=`pwd`
 
 #install git 2.8.0
 cd $SOFT_PATH
-yum -y install zlib-devel openssl-devel cpio expat-devel gettext-devel curl-devel perl-ExtUtils-CBuilder perl-ExtUtils- MakeMaker
+yum -y install zlib-devel openssl-devel cpio expat-devel gettext-devel curl-devel perl-ExtUtils-CBuilder perl-ExtUtils- MakeMaker gcc-c++ libstdc++-devel
 wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.8.0.tar.gz
-tar -zxvf git-2.8.0.tar.gz -C $SOFT_PATH
+tar -zxf git-2.8.0.tar.gz -C $SOFT_PATH
 cd git*
 ./configure
 make install
-ln -s /usr/local/bin/git /usr/bin/git
+ln -s /usr/local/git-2.8.0 /usr/bin/git
+#æ¸…ç†å®‰è£…åŒ…
+cd $SOFT_PATH
+mv jdk-8u141-linux-x64.tar.gz  apache-maven-3.2.3-bin.tar.gz git-2.8.0.tar.gz  /tmp
 
-#×·¼Ó»·¾³±äÁ¿
+#è¿½åŠ ç¯å¢ƒå˜é‡
 echo "export JAVA_HOME=${JAVA_HOME}" >> /etc/profile
 echo "export PATH=$""JAVA_HOME/bin:$""PATH" >> /etc/profile
 echo "export MAVEN_HOME=${MAVEN_HOME}" >> /etc/profile
 echo "export PATH=$""MAVEN_HOME/bin:$""PATH" >> /etc/profile
 source /etc/profile
-#Êä³öĞÅÏ¢
+#è¾“å‡ºä¿¡æ¯
 echo "-----source update-----"
 echo "java version"
 java -version
